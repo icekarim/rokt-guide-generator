@@ -12,7 +12,8 @@ import StepAttributes from "./StepAttributes";
 import StepEvents from "./StepEvents";
 import StepPlacements from "./StepPlacements";
 import StepReview from "./StepReview";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, LogOut } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 const STEP_COMPONENTS = [
   StepClientInfo,
@@ -27,6 +28,7 @@ const STEP_COMPONENTS = [
 
 export default function WizardShell() {
   const { state, dispatch } = useWizard();
+  const { data: session } = useSession();
   const StepComponent = STEP_COMPONENTS[state.currentStep];
 
   const canGoNext = () => {
@@ -53,6 +55,20 @@ export default function WizardShell() {
           <span className="text-white/50 text-[11px] font-mono tracking-wider uppercase">
             Integration Guide Generator
           </span>
+          {session?.user && (
+            <div className="ml-auto flex items-center gap-3">
+              <span className="text-white/50 text-xs truncate max-w-[180px]">
+                {session.user.email}
+              </span>
+              <button
+                onClick={() => signOut({ callbackUrl: "/login" })}
+                className="text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+                title="Sign out"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </div>
+          )}
         </div>
       </header>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, Roboto_Mono } from "next/font/google";
+import AuthProvider from "@/components/providers/AuthProvider";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${archivo.variable} ${robotoMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
