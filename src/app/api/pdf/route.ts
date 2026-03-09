@@ -21,9 +21,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    let logoDataUrl = "";
     const logoPath = path.join(process.cwd(), "public", "rokt-logo-black.png");
-    const logoBase64 = fs.readFileSync(logoPath).toString("base64");
-    const logoDataUrl = `data:image/png;base64,${logoBase64}`;
+    try {
+      const logoBase64 = fs.readFileSync(logoPath).toString("base64");
+      logoDataUrl = `data:image/png;base64,${logoBase64}`;
+    } catch {
+      // Logo file missing — buildPdfHtml will render a text fallback
+    }
 
     const html = buildPdfHtml(content, logoDataUrl);
 
