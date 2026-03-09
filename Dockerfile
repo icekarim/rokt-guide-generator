@@ -54,7 +54,11 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Ensure nextjs user can write to tmp (needed by Chromium)
+RUN mkdir -p /tmp/.chromium && chown nextjs:nodejs /tmp/.chromium
+
 USER nextjs
+ENV HOME=/tmp
 
 EXPOSE 3000
 ENV PORT=3000
