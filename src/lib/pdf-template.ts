@@ -116,7 +116,7 @@ export const GUIDE_STYLES = `
     /* Gray 900: #6E6E73, Gray 800: #86868b, Gray 600: #E0E0E4, Gray 300: #F8F8FA */
 
     .header-bar {
-      background: #000000;
+      background: #C20075;
       margin: -10px -10px 18px -10px;
       padding: 20px 24px;
       display: flex;
@@ -254,7 +254,7 @@ export const GUIDE_STYLES = `
     }
 
     th {
-      background: #000000;
+      background: #C20075;
       color: #FFFFFF;
       padding: 6px 8px;
       text-align: left;
