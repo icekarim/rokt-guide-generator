@@ -68,7 +68,10 @@ export default function StepReview() {
         }),
       });
 
-      if (!pdfRes.ok) throw new Error("PDF generation failed");
+      if (!pdfRes.ok) {
+        const errBody = await pdfRes.json().catch(() => ({}));
+        throw new Error(errBody.details || errBody.error || "PDF generation failed");
+      }
 
       const blob = await pdfRes.blob();
       const url = URL.createObjectURL(blob);
